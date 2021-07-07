@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FBU-Instagram</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">km7FhQgOAhKeuae8i6US6eqsOv8VQ7aSTzV9qdMf</string>
+    <string name="back4app_client_key">EY6LiyhNUvlGBezm6aB8wDIWMJLQ0iFWSF0gJcAK</string>
 </resources>
