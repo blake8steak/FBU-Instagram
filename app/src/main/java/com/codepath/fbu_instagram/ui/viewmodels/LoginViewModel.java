@@ -1,8 +1,10 @@
 package com.codepath.fbu_instagram.ui.viewmodels;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
+import com.codepath.fbu_instagram.ui.SignupActivity;
 import com.codepath.fbu_instagram.ui.domain.SubmitLogin;
 
 public class LoginViewModel {
@@ -25,6 +27,7 @@ public class LoginViewModel {
     }
 
     public void onNewUserButtonClick() {
-        // add new user activity intent here
+        Intent i = new Intent(viewContext, SignupActivity.class);
+        viewContext.startActivity(i);
     }
 }

@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         if(ParseUser.getCurrentUser() != null) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
-            //setContentView(R.layout.activity_main);
         } else {
             setContentView(R.layout.activity_login);
             viewModel = new LoginViewModel(this);
@@ -40,19 +39,9 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin = findViewById(R.id.btnCreateAccount);
             btnNewUser = findViewById(R.id.btnBackToLogin);
 
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onLoginPress();
-                }
-            });
+            btnLogin.setOnClickListener(v -> onLoginPress());
 
-            btnNewUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onNewUserPress();
-                }
-            });
+            btnNewUser.setOnClickListener(v -> onNewUserPress());
         }
     }
 
@@ -60,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.onLoginButtonClick(username.getText().toString(), password.getText().toString());
     }
 
-    public static void onNewUserPress() {
-        //insert viewmodel ref here
+    public void onNewUserPress() {
+        viewModel.onNewUserButtonClick();
     }
 }

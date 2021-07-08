@@ -1,45 +1,57 @@
 package com.codepath.fbu_instagram.ui.domain;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.codepath.fbu_instagram.UseCase;
+import com.codepath.fbu_instagram.ui.LoginActivity;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-public class CreateUser {
+public class CreateUser extends UseCase {
     private final String TAG = "CreateUser";
     private Context context;
-    private String name;
+
     private String username;
     private String password;
+    private String email;
+    private String name;
 
-    public CreateUser(Context context, String name, String username, String password) {
+    public CreateUser(Context context) {
         this.context = context;
+    }
+
+    public void setNewUserData(String name, String email, String username, String password) {
         this.name = name;
+        this.email = email;
         this.username = username;
         this.password = password;
     }
 
-    public void createUser() {
+    @Override
+    public void executeUseCase() {
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
+        user.setEmail(email);
         // Set custom properties
         user.put("name", name);
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
-            @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    // Hooray! Let them use the app now.
+                    Toast.makeText(context, "User "+username+" created successfully.", Toast.LENGTH_SHORT);
+                    Intent i = new Intent(context, LoginActivity.class);
+                    context.startActivity(i);
                 } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
+                    Log.e(TAG, "Failed to register new user. "+e.getCode()+", "+e.getMessage());
                 }
             }
         });
     }
-
 }
