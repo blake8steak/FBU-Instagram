@@ -20,7 +20,6 @@ public class LoginViewModel {
     }
 
     public void onLoginButtonClick(String username, String password) {
-        Log.i(TAG, "In the view model!");
         SubmitLogin submitLoginUseCase = new SubmitLogin(viewContext, username, password);
         submitLoginUseCase.executeUseCase();
     }

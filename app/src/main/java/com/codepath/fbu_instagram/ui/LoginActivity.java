@@ -2,6 +2,7 @@ package com.codepath.fbu_instagram.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.ui.viewmodels.LoginViewModel;
+import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginViewModel viewModel;
@@ -26,26 +28,32 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        viewModel = new LoginViewModel(this);
-        username = findViewById(R.id.etUsername);
-        password = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnNewUser = findViewById(R.id.btnNewUser);
+        if(ParseUser.getCurrentUser() != null) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+            //setContentView(R.layout.activity_main);
+        } else {
+            setContentView(R.layout.activity_login);
+            viewModel = new LoginViewModel(this);
+            username = findViewById(R.id.etName);
+            password = findViewById(R.id.etConfirmPassword);
+            btnLogin = findViewById(R.id.btnCreateAccount);
+            btnNewUser = findViewById(R.id.btnBackToLogin);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onLoginPress();
-            }
-        });
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onLoginPress();
+                }
+            });
 
-        btnNewUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNewUserPress();
-            }
-        });
+            btnNewUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onNewUserPress();
+                }
+            });
+        }
     }
 
     public void onLoginPress() {

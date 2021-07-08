@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.util.Log;
 
 import com.codepath.fbu_instagram.UseCase;
+import com.codepath.fbu_instagram.ui.MainActivity;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -13,9 +14,9 @@ import com.parse.ParseUser;
 
 public class SubmitLogin extends UseCase {
     private final String TAG = "SubmitLogin";
+    private Context context;
     private String username;
     private String password;
-    private Context context;
 
     /*
         Inside the SubmitLogin use case,
@@ -38,6 +39,8 @@ public class SubmitLogin extends UseCase {
                     Log.e(TAG, "Error with login: "+e.getCode()+", "+e.getMessage());
                 } else {
                     Log.i(TAG, "Success! Username: "+user.getUsername()+", ID "+user.getObjectId());
+                    Intent i = new Intent(context, MainActivity.class);
+                    context.startActivity(i);
                 }
             }
         });
