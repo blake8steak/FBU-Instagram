@@ -47,6 +47,6 @@ public class LikePost extends UseCase {
                 Log.e(TAG, e1.getMessage());
             }
         });
-        likeLabel.setText(numLikes+" likes");
+        likeLabel.setText(numLikes+" hearts");
     }
 }

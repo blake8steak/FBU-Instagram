@@ -111,6 +111,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     return true;
                 }
             });
+            tvLikes.setText(post.getInt("likes")+" hearts");
             //for avatars
             RequestOptions circleAvi = new RequestOptions();
             circleAvi = circleAvi.transforms(new CircleCrop());
