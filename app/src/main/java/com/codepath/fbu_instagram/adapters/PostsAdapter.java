@@ -127,7 +127,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 // create intent for the new activity
                 fragmentManager.beginTransaction().replace(R.id.flContainer, postDetailFragment)
                     .setReorderingAllowed(true)
-                    .addToBackStack("Home") // name can be null
+                    .addToBackStack(null) // name can be null
                     .commit();
             }
         }

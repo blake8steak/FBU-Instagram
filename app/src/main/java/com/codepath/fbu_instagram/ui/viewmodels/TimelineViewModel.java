@@ -16,6 +16,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -49,6 +50,12 @@ public class TimelineViewModel {
         adapter.clear();
         getPostData();
         swipeContainer.setRefreshing(false);
+    }
+
+    //endless scrolling
+    public void onLoadMore() {
+        Log.i(TAG, "running onLoadMore");
+        getPosts.executeUseCase();
     }
 
 }

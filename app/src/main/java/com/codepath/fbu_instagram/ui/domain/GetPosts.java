@@ -41,6 +41,8 @@ public class GetPosts extends UseCase {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(20);
+        query.setSkip(allPosts.size());
+        Log.i(TAG, "size of all posts: "+allPosts.size());
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
             @Override

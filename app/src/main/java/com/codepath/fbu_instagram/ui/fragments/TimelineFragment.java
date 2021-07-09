@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codepath.fbu_instagram.EndlessRecyclerViewScrollListener;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.adapters.PostsAdapter;
 import com.codepath.fbu_instagram.models.Post;
@@ -55,7 +56,14 @@ public class TimelineFragment extends Fragment {
         timelineViewModel = new TimelineViewModel(getContext(), ((AppCompatActivity)getActivity()).getSupportActionBar(), allPosts, adapter, swipeContainer);
         rvPosts = view.findViewById(R.id.rvPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+        rvPosts.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                timelineViewModel.onLoadMore();
+            }
+        });
         timelineViewModel.getPostData();
 
 
