@@ -38,7 +38,7 @@ public class ComposeViewModel {
         this.ivPreviewImage = ivPreviewImage;
         this.fragment = fragment;
         this.bottomNavigationView = bottomNavigationView;
-        submitPost = new SubmitPost(viewContext);
+        submitPost = new SubmitPost(viewContext, bottomNavigationView, descTextField, ivPreviewImage);
         takePhoto = new TakePhoto(viewContext, mainActivity, ivPreviewImage, submitPost);
     }
 
@@ -46,12 +46,6 @@ public class ComposeViewModel {
         //photoFile is set via takePhoto
         submitPost.setDescription(description);
         submitPost.executeUseCase();
-        descTextField.setText("");
-        ivPreviewImage.setImageResource(0);
-//        FragmentTransaction fr = fragment.getFragmentManager().beginTransaction();
-//        fr.replace(R.id.flContainer, MainActivity.timelineFragment);
-//        fr.commit();
-        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 
     public void takePhoto() {
