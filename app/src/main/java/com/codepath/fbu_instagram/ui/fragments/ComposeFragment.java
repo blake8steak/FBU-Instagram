@@ -19,6 +19,7 @@ import com.codepath.fbu_instagram.ui.domain.TakePhoto;
 import com.codepath.fbu_instagram.ui.viewmodels.ComposeViewModel;
 
 public class ComposeFragment extends Fragment {
+    private static final int RESULT_OK = -1;
     private final String TAG = "ComposeFragment";
     private ComposeViewModel composeViewModel;
     private EditText etDescription;
@@ -66,6 +67,10 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        composeViewModel.savePhoto();
+        if (requestCode == TakePhoto.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                composeViewModel.savePhoto();
+            }
+        }
     }
 }
