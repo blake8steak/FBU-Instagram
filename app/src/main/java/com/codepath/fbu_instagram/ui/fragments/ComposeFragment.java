@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.codepath.fbu_instagram.R;
+import com.codepath.fbu_instagram.ui.MainActivity;
 import com.codepath.fbu_instagram.ui.domain.TakePhoto;
 import com.codepath.fbu_instagram.ui.viewmodels.ComposeViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ComposeFragment extends Fragment {
     private static final int RESULT_OK = -1;
@@ -26,11 +30,15 @@ public class ComposeFragment extends Fragment {
     private ImageView ivPreviewImage;
     private Button btnPost;
     private Button btnTakePhoto;
+    private BottomNavigationView bottomNavigationView;
 
     public ComposeFragment() {
         // Required empty public constructor
     }
 
+    public ComposeFragment(BottomNavigationView bottomNavigationView) {
+        this.bottomNavigationView = bottomNavigationView;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,7 @@ public class ComposeFragment extends Fragment {
         etDescription = view.findViewById(R.id.etDescription);
         btnTakePhoto = view.findViewById(R.id.btnTakePhoto);
         btnPost = view.findViewById(R.id.btnPost);
-        composeViewModel = new ComposeViewModel(getContext(), etDescription, ivPreviewImage, getActivity());
+        composeViewModel = new ComposeViewModel(getContext(), bottomNavigationView, this, etDescription, ivPreviewImage, getActivity());
 
         btnTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +66,7 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 composeViewModel.submitPost(etDescription.getText().toString());
+
             }
         });
 

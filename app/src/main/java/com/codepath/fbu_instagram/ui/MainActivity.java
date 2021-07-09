@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +25,9 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
     private final FragmentManager fragmentManager = getSupportFragmentManager();
-    private final Fragment composeFragment = new ComposeFragment();
-    private final Fragment profileFragment = new ProfileFragment();
-    private final Fragment timelineFragment = new TimelineFragment();
+    private Fragment composeFragment;
+    private Fragment profileFragment;
+    private Fragment timelineFragment;
     private MainViewModel mainViewModel;
     private BottomNavigationView bottomNavigationView;
 
@@ -34,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        composeFragment = new ComposeFragment(bottomNavigationView);
+        profileFragment = new ProfileFragment();
+        timelineFragment = new TimelineFragment();
         mainViewModel = new MainViewModel(MainActivity.this, this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -55,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
+
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.add(R.id.flContainer, timelineFragment);
+//        fragmentTransaction.commit();
     }
 
     @Override

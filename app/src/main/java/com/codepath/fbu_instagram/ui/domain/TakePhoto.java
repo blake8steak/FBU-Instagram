@@ -28,12 +28,21 @@ public class TakePhoto extends UseCase {
     private String photoFileName;
     private File photoFile;
     private ImageView ivPreviewImage;
+    private SubmitPost submitPost;
 
     public TakePhoto(Context context, Activity activity, ImageView ivPreviewImage) {
         this.context = context;
         this.activity = activity;
         this.ivPreviewImage = ivPreviewImage;
         photoFileName = "photo.jpg";
+    }
+
+    public TakePhoto(Context context, Activity activity, ImageView ivPreviewImage, SubmitPost submitPost) {
+        this.context = context;
+        this.activity = activity;
+        this.ivPreviewImage = ivPreviewImage;
+        this.photoFileName = "photo.jpg";
+        this.submitPost = submitPost;
     }
 
     @Override
@@ -46,6 +55,10 @@ public class TakePhoto extends UseCase {
         // RESIZE BITMAP, see section below
         // Load the taken image into a preview
         ivPreviewImage.setImageBitmap(takenImage);
+        // if used in context of Compose fragment using SubmitPost constructor
+        if(submitPost != null) {
+            submitPost.setPhotoFile(photoFile);
+        }
     }
 
     public void takePhoto() {
