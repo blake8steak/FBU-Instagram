@@ -56,7 +56,7 @@ public class PostDetailFragment extends Fragment {
             postParcel = Parcels.unwrap(bundle.getParcelable(PostParcel.class.getSimpleName()));
             Log.i(TAG, postParcel.user.getUsername()+": "+postParcel.description);
             try {
-                postDetailViewModel = new PostDetailViewModel(view, postParcel, tvUsername, ivImage, tvDescription, ivAvatar, tvLikes, tvTimeSincePosted);
+                postDetailViewModel = new PostDetailViewModel(view, postParcel);
             } catch(ParseException e) {
                 Log.e(TAG, "Error loading image into detail view");
             }

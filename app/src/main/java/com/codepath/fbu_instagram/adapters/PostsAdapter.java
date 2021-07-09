@@ -19,6 +19,7 @@ import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.models.PostParcel;
 import com.codepath.fbu_instagram.ui.fragments.PostDetailFragment;
+import com.codepath.fbu_instagram.ui.viewmodels.PostDetailViewModel;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -92,6 +93,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
+            tvTimeSincePosted.setText(PostDetailViewModel.calculateTimeAgo(post.getCreatedAt()));
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
@@ -102,7 +104,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 Post post = posts.get(position);
-                PostParcel postParcel = new PostParcel(post.getDescription(), post.getImage(), post.getUser());
+                PostParcel postParcel = new PostParcel(post.getDescription(), post.getImage(), post.getUser(), post.getCreatedAt());
                 PostDetailFragment postDetailFragment = new PostDetailFragment();
 
                 Bundle bundle = new Bundle();
