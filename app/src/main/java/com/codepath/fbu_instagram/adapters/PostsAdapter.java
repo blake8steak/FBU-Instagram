@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.codepath.fbu_instagram.DoubleTapDetector;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.models.PostParcel;
@@ -98,6 +101,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             tvTimeSincePosted.setText(PostDetailViewModel.calculateTimeAgo(post.getCreatedAt()));
+            GestureDetector doubleTapDetector = new GestureDetector(itemView.getContext(), new DoubleTapDetector(post, context, tvLikes));
+            ivImage.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    doubleTapDetector.onTouchEvent(event);
+                    return true;
+                }
+            });
             //for avatars
             RequestOptions circleAvi = new RequestOptions();
             circleAvi = circleAvi.transforms(new CircleCrop());
@@ -118,7 +129,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 Post post = posts.get(position);
-                PostParcel postParcel = new PostParcel(post.getDescription(), post.getImage(), post.getUser(), post.getCreatedAt());
+                PostParcel postParcel = new PostParcel(post.getDescription(), post.getImage(), post.getUser(), post.getCreatedAt(), post.getInt("likes"));
                 PostDetailFragment postDetailFragment = new PostDetailFragment();
 
                 Bundle bundle = new Bundle();
@@ -131,5 +142,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     .commit();
             }
         }
+
+        public void likePost() {}
+
     }
 }

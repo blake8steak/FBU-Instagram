@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.codepath.fbu_instagram.adapters.PostsAdapter;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.ui.domain.GetPosts;
+import com.codepath.fbu_instagram.ui.domain.LikePost;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -57,5 +58,4 @@ public class TimelineViewModel {
         Log.i(TAG, "running onLoadMore");
         getPosts.executeUseCase();
     }
-
 }

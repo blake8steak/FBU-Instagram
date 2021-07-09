@@ -14,14 +14,16 @@ public class PostParcel {
     public ParseFile image;
     public ParseUser user;
     public Date postDate;
+    public int likes;
 
     public PostParcel() {}
 
-    public PostParcel(String description, ParseFile image, ParseUser user, Date postDate) {
+    public PostParcel(String description, ParseFile image, ParseUser user, Date postDate, int likes) {
         this.description = description;
         this.image = image;
         this.user = user;
         this.postDate = postDate;
+        this.likes = likes;
     }
 
 }
