@@ -1,6 +1,9 @@
 package com.codepath.fbu_instagram.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +11,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
+import com.codepath.fbu_instagram.models.PostParcel;
+import com.codepath.fbu_instagram.ui.fragments.PostDetailFragment;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+    private static final String TAG = "PostsAdapter";
     private Context context;
     private List<Post> posts;
+    private FragmentManager fragmentManager;
 
-    public PostsAdapter(Context context, List<Post> posts) {
+    public PostsAdapter(Context context, List<Post> posts, FragmentManager fragmentManager) {
         this.context = context;
         this.posts = posts;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -56,7 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvUsername;
         private TextView tvDescription;
@@ -73,6 +84,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivAvatar = itemView.findViewById(R.id.ivAvatar);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             tvTimeSincePosted = itemView.findViewById(R.id.tvTimeSincePosted);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
@@ -82,6 +94,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+                PostParcel postParcel = new PostParcel(post.getDescription(), post.getImage(), post.getUser());
+                PostDetailFragment postDetailFragment = new PostDetailFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(PostParcel.class.getSimpleName(), Parcels.wrap(postParcel));
+                postDetailFragment.setArguments(bundle);
+                // create intent for the new activity
+                fragmentManager.beginTransaction().replace(R.id.flContainer, postDetailFragment)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("Home") // name can be null
+                    .commit();
             }
         }
     }

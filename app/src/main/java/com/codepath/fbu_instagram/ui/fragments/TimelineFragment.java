@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,12 +26,17 @@ public class TimelineFragment extends Fragment {
     private String TAG = "TimelineFragment";
     private TimelineViewModel timelineViewModel;
     private SwipeRefreshLayout swipeContainer;
+    private FragmentManager fragmentManager;
     private RecyclerView rvPosts;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
     public TimelineFragment() {
         // Required empty public constructor
+    }
+
+    public TimelineFragment(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -42,7 +48,7 @@ public class TimelineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(getContext(), allPosts);
+        adapter = new PostsAdapter(getContext(), allPosts, fragmentManager);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainer);

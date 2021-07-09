@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         composeFragment = new ComposeFragment(bottomNavigationView);
         profileFragment = new ProfileFragment();
-        timelineFragment = new TimelineFragment();
+        timelineFragment = new TimelineFragment(fragmentManager);
         mainViewModel = new MainViewModel(MainActivity.this, this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.flContainer, timelineFragment);
-//        fragmentTransaction.commit();
     }
 
     @Override
