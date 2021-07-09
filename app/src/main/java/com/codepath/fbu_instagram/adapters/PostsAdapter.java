@@ -15,6 +15,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.models.PostParcel;
@@ -94,8 +98,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             tvTimeSincePosted.setText(PostDetailViewModel.calculateTimeAgo(post.getCreatedAt()));
+            //for avatars
+            RequestOptions circleAvi = new RequestOptions();
+            circleAvi = circleAvi.transforms(new CircleCrop());
+            // for post images
+            RequestOptions imgOptions = new RequestOptions();
+            imgOptions = imgOptions.transforms(new CenterCrop(), new RoundedCorners(20));
             if (image != null) {
-                Glide.with(context).load(image.getUrl()).into(ivImage);
+                Glide.with(context).load(image.getUrl()).apply(imgOptions).into(ivImage);
             }
         }
 
