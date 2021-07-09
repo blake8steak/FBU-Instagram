@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.models.PostParcel;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 
 import java.io.File;
 import java.util.Date;
@@ -38,6 +40,8 @@ public class PostDetailViewModel {
         tvUsername.setText(postParcel.user.getUsername());
         Bitmap takenImage = BitmapFactory.decodeFile(postParcel.image.getFile().getAbsolutePath());
         ivImage.setImageBitmap(takenImage);
+        Bitmap userAvi = BitmapFactory.decodeFile(postParcel.user.getParseFile("userAvi").getFile().getAbsolutePath());
+        ivAvatar.setImageBitmap(userAvi);
         tvDescription.setText(postParcel.description);
         tvTimeSincePosted.setText(calculateTimeAgo(postParcel.postDate));
     }
