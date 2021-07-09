@@ -83,6 +83,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvTimeSincePosted;
         private ImageView ivImage;
         private ImageView ivAvatar;
+        private ImageView ivHeart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +93,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivAvatar = itemView.findViewById(R.id.ivAvatar);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             tvTimeSincePosted = itemView.findViewById(R.id.tvTimeSincePosted);
+            ivHeart = itemView.findViewById(R.id.ivHeart);
             itemView.setOnClickListener(this);
         }
 
@@ -101,7 +103,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             tvTimeSincePosted.setText(PostDetailViewModel.calculateTimeAgo(post.getCreatedAt()));
-            GestureDetector doubleTapDetector = new GestureDetector(itemView.getContext(), new DoubleTapDetector(post, context, tvLikes));
+            GestureDetector doubleTapDetector = new GestureDetector(itemView.getContext(), new DoubleTapDetector(post, context, tvLikes, ivHeart));
             ivImage.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {

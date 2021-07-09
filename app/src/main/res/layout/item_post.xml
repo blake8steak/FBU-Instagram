@@ -86,4 +86,17 @@
         android:paddingBottom="10dp"
         android:text="This is a post, lorum ipsum dolor sit amet. The quick brown fox jumps over the lazy dog. Example text here. #hashtag" />
 
+    <ImageView
+        android:id="@+id/ivHeart"
+        android:layout_width="117dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="154dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ufi_heart_active"
+        app:tint="#FF7878" />
+
 </RelativeLayout>

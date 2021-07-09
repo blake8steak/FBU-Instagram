@@ -1,7 +1,10 @@
 package com.codepath.fbu_instagram.ui.domain;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.fbu_instagram.UseCase;
@@ -13,11 +16,13 @@ public class LikePost extends UseCase {
     private Context context;
     private TextView likeLabel;
     private Post post;
+    private ImageView heart;
 
-    public LikePost(Context context, TextView likeLabel, Post post) {
+    public LikePost(Context context, TextView likeLabel, Post post, ImageView heart) {
         this.context = context;
         this.likeLabel = likeLabel;
         this.post = post;
+        this.heart = heart;
     }
 
     @Override
@@ -26,6 +31,13 @@ public class LikePost extends UseCase {
     }
 
     public void submitLike() {
+        heart.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable(){
+            public void run() {
+                heart.setVisibility(View.INVISIBLE);
+            }
+        }, 200);
+
         int numLikes = post.getInt("likes") + 1;
         post.put("likes", numLikes);
         post.saveInBackground(e1 -> {
