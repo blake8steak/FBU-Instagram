@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+
 import com.codepath.fbu_instagram.UseCase;
 import com.codepath.fbu_instagram.adapters.PostsAdapter;
 import com.codepath.fbu_instagram.models.Post;
@@ -20,11 +22,13 @@ public class GetPosts extends UseCase {
     private Context context;
     List<Post> allPosts;
     PostsAdapter adapter;
+    ActionBar actionBar;
 
-    public GetPosts(Context context, List<Post> allPosts, PostsAdapter adapter) {
+    public GetPosts(Context context, ActionBar actionBar, List<Post> allPosts, PostsAdapter adapter) {
         this.context = context;
         this.allPosts = allPosts;
         this.adapter = adapter;
+        this.actionBar = actionBar;
     }
 
     @Override
@@ -52,6 +56,7 @@ public class GetPosts extends UseCase {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
+                actionBar.setTitle("Instagram");
             }
         });
     }

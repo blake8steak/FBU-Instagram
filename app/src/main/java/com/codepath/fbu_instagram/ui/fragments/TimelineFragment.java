@@ -2,6 +2,8 @@ package com.codepath.fbu_instagram.ui.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,11 +46,9 @@ public class TimelineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
         swipeContainer = view.findViewById(R.id.swipeContainer);
-        timelineViewModel = new TimelineViewModel(getContext(), allPosts, adapter, swipeContainer);
+        timelineViewModel = new TimelineViewModel(getContext(), ((AppCompatActivity)getActivity()).getSupportActionBar(), allPosts, adapter, swipeContainer);
         rvPosts = view.findViewById(R.id.rvPosts);
-        // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
-        // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         timelineViewModel.getPostData();
 
