@@ -44,6 +44,7 @@ public class PostDetailViewModel {
         ivAvatar.setImageBitmap(userAvi);
         tvDescription.setText(postParcel.description);
         tvTimeSincePosted.setText(calculateTimeAgo(postParcel.postDate));
+        tvLikes.setText(postParcel.likes+" hearts");
     }
 
     public static String calculateTimeAgo(Date createdAt) {
@@ -60,7 +61,7 @@ public class PostDetailViewModel {
 
             final long diff = now - time;
             if (diff < MINUTE_MILLIS) {
-                return "0s";
+                return "just now";
             } else if (diff < 2 * MINUTE_MILLIS) {
                 return "1m";
             } else if (diff < 50 * MINUTE_MILLIS) {
