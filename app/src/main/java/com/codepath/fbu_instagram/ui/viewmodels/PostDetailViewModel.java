@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.fbu_instagram.R;
 import com.codepath.fbu_instagram.models.Post;
 import com.codepath.fbu_instagram.models.PostParcel;
+import com.codepath.fbu_instagram.ui.domain.TakePhoto;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 
@@ -39,6 +40,7 @@ public class PostDetailViewModel {
 
         tvUsername.setText(postParcel.user.getUsername());
         Bitmap takenImage = BitmapFactory.decodeFile(postParcel.image.getFile().getAbsolutePath());
+        takenImage = TakePhoto.rotateBitmapOrientation(postParcel.image.getFile().getAbsolutePath());
         ivImage.setImageBitmap(takenImage);
         Bitmap userAvi = BitmapFactory.decodeFile(postParcel.user.getParseFile("userAvi").getFile().getAbsolutePath());
         ivAvatar.setImageBitmap(userAvi);

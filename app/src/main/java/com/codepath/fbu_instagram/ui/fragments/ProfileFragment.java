@@ -35,7 +35,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        profileViewModel = new ProfileViewModel(getContext());
     }
 
     @Override
@@ -43,24 +42,18 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        profileViewModel = new ProfileViewModel(getContext(), view);
         btnSignOut = view.findViewById(R.id.btnSignOut);
         ivUserAvatar = view.findViewById(R.id.ivUserAvatar);
         tvScreenName = view.findViewById(R.id.tvScreenName);
         tvRealName = view.findViewById(R.id.tvRealName);
-        try {
-            Bitmap takenImage = BitmapFactory.decodeFile(ParseUser.getCurrentUser().getParseFile("userAvi").getFile().getAbsolutePath());
-            ivUserAvatar.setImageBitmap(takenImage);
-        } catch (ParseException e) {
-            Log.e(TAG, "Could not load user avatar.");
-        }
-        tvScreenName.setText("@"+ParseUser.getCurrentUser().getUsername());
-        tvRealName.setText(ParseUser.getCurrentUser().getString("name"));
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 profileViewModel.signOut();
             }
         });
+        profileViewModel.displayUserData();
         return view;
     }
 }
