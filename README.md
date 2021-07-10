@@ -43,11 +43,13 @@ The following **additional** features are implemented:
 - [X] Created the project with MVVM framework with Clean Architecture as opposed to the MVC shown in the tutorial (https://www.toptal.com/android/android-apps-mvvm-with-clean-architecture)
   - [X] Abstracted all logic out of Activities/Fragments
   - [X] Implemented Clean Architecture by moving logic into UseCase objects that are instansiated by ViewModel objects that exist in the Activity/Fragment
+- [X] User can "heart" a post by double tapping the image
+  - [X] User can "heart" post more than once
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. MVVM with Clean Architecture, and why it's so useful
+2. Fragments
 
 ## Video Walkthrough
 
@@ -70,7 +72,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright 2021 Blake Herrera
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
