@@ -64,11 +64,16 @@ GIF created with [Kap](https://getkap.co/).
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [Android Async Http Client](http://loopj.com/android-async-http/) - networking library
+- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
 
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Building the app itself wasn't too difficult - but challenging myself to build the app with MVVM with Clean Architechture was challenging.
+
+This was a great final project to end the three week course. I feel that I was able to apply everything I've learned about Android development into this project.
+
+Excited to work on my own project now!
 
 ## License
 
