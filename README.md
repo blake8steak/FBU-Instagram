@@ -69,7 +69,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## Notes
 
-Building the app itself wasn't too difficult - but challenging myself to build the app with MVVM with Clean Architechture was challenging.
+Building the app itself wasn't too difficult - but challenging myself to build the app with MVVM with Clean Architecture was challenging.
 
 This was a great final project to end the three week course. I feel that I was able to apply everything I've learned about Android development into this project.
 
